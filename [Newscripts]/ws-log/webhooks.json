@@ -1,0 +1,58 @@
+{ 
+    "death":
+    {
+        "guild": 1112833130513047572,
+        "token": "token"
+    },
+    "logins":
+    {
+        "guild": 1112833610366595184,
+        "token": "token"
+    },
+    "disconnect":
+    {
+        "guild": 1112833880895008811,
+        "token": "token"
+    },
+    "wenmo":
+    {
+        "guild": 1112834142321782865,
+        "token": "token"
+    },
+    "blackmarket":
+    {
+        "guild": 1112834333573656660,
+        "token": "token"
+    },
+    "admin":
+    {
+        "guild": 1112834495368937604,
+        "token": "token"
+    },
+    "permission": 
+    {
+        "guild": 1112834666160996454,
+        "token": "token"
+    },
+    "cornerselling":
+    {
+        "guild": 1112834877205790811,
+        "token": "token"
+    },
+    "realestate":
+    {
+        "guild": 1112835050162110505,
+        "token": "token"
+    },
+    "mugshot":
+    {
+        "guild": 1112835219347738754,
+        "token": "token"
+    },
+    "jail":
+    {
+        "guild": 1112835555772866560,
+        "token": "token"
+    }
+}
+

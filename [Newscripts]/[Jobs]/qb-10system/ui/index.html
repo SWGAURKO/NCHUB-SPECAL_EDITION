@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/6b037c9e5a.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200&display=swap" rel="stylesheet">
+    
+
+    <link href="style.css" rel="stylesheet">
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+
+    <title>YariNN 10-System</title>
+</head>
+<body>
+    <div class="container-main">
+        <div class="active-officers">
+            <div class="title">
+                <span>Active Officers</span>
+            </div>
+            <div class="officers-container"></div>
+			<div class="officers-container-fake"></div>
+        </div>
+
+        <div class="settings-container">
+            <div class="warrper">
+                <div class="settings-container-header">
+                    <span>Personal Settings</span>
+                    <i class="material-icons" id="close-del">close</i>
+                </div>
+                <div class="page-1">
+                    <div class="range-inputes">
+                        <form>
+                            <p>Background Opacity</p>
+                            <input class="range-bar" id = "opacity" type="range" value="contrast" max="0.9" min="0.5" step="0.01">
+                            <p>Font Size</p>
+                            <input class="range-bar" id = "increase-size" type="range" value="contrast" max="0.8" min="0.4" step="0.01">
+                        </form>
+                    </div>
+
+                     <div class="set-rank">
+                        <input type="text" id="rank" placeholder="GRADE" class="input">
+                        <span id = "rank-err" style="color: #e23535; text-shadow: 0px 1px 5px rgba(105, 11, 11, 0.8); display: block;"></span>
+                        <div class="save-btn rank">Change</div>
+                    </div>
+
+
+                    <div class="inpurs-id">
+                        <div class="options-btns">
+                            <button data-action="update" class="options-btn">Update</button>
+                            <button  data-action="add" class="options-btn">Add</button >
+                            <button  data-action="remove" class="options-btn">Remove</button>
+                        </div>
+                        <input type="number" id="id" placeholder="PLAYER ID" class="input">
+                        <input type="text" id="code" placeholder="CODE" class="input">
+                        <span id = "err-text" style="color: #e23535; text-shadow: 0px 1px 5px rgba(0,0,0,0.80); display: block;"></span>
+                        <div class="save-btn">Change</div>
+                    </div>
+    
+
+                <div class="inpurs-id">
+                    <div class="options-btns">
+                        <button data-action="update" class="options-btn">Update</button>
+                        <button  data-action="add" class="options-btn">Add</button >
+                        <button  data-action="remove" class="options-btn">Remove</button >
+                    </div>
+                    <input type="text" id="id" placeholder="PLAYER ID" class="input">
+                    <input type="text" id="code" placeholder="CODE" class="input">
+                    <span id = "err-text" style="color: #e23535; text-shadow: 0px 1px 5px rgba(143, 48, 48, 0.8); display: block;"></span>
+                    <div class="save-btn">Save</div>
+                </div>
+
+                <button class="toggle-btn" onclick="toggle()">Toggle</button>
+                <div class="restore-btn">Restore</div>
+                <div class="slide-btnLeft"><i class="fas fa-arrow-circle-left Colorbtn"></i></div>
+                <div class="slide-btnRight"><i class="fas fa-arrow-circle-right Colorbtn"></i></div>
+                <span id="action-text" style="color: #e23535; text-shadow: 0px 1px 5px rgba(0,0,0,0.80); display: block;"></span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

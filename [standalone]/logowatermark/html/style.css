@@ -1,0 +1,94 @@
+html {
+	overflow: hidden;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+}
+
+#container {
+	position: absolute;
+	top: 4vh;
+	bottom: 100%;
+	left: 1%; /*25*/
+	width: 56px;
+	height: 56px;
+	flex-direction: column;
+}
+
+header {
+	width: 48px;
+	height: 48px;
+	/*background-color: #a519ea;*/
+	opacity: 0.8;
+	border-top-left-radius: 40px;
+	border-top-right-radius: 40px;
+
+}
+
+header img {
+	width: 48px;
+	height: 48px;
+    transform: translatey(0px);
+	animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+	0% {
+		transform: translatey(0px);
+	}
+	50% {
+		transform: translatey(-5px);
+	}
+	100% {
+		transform: translatey(0px);
+	}
+}
+/* Firefox old*/
+@-moz-keyframes blink {
+    0% {
+        opacity:1;
+    }
+    50% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+} 
+
+@-webkit-keyframes blink {
+    0% {
+        opacity:1;
+    }
+    50% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+/* IE */
+@-ms-keyframes blink {
+    0% {
+        opacity:1;
+    }
+    50% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+} 
+/* Opera and prob css3 final iteration */
+@keyframes blink {
+    0% {
+        opacity:1;
+    }
+    50% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}

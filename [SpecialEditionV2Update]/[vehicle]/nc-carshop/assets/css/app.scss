@@ -1,0 +1,923 @@
+@font-face {
+  font-family: Inter;
+  src: url(../font/Inter-Regular.ttf);
+}
+
+
+@font-face {
+  font-family: Inter-2;
+  src: url(../font/Inter-VariableFont_slnt\,wght.ttf);
+}
+
+@font-face {
+  font-family: Gilroy;
+  src: url(../font/Gilroy-Medium.ttf);
+}
+
+.move {
+  position: absolute;
+  height: 40%;
+  width: 50%;
+  margin: auto auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 5%;
+  z-index: 1;
+//  background-color: #ff151523;
+}
+
+body {
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+   user-select: none;
+   align-items: center;
+   justify-content: center;
+}
+
+:root {
+  --scrolbar: #EAC43D;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 0.3rem;
+  display:none
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #1F232B;
+  border-radius: 3px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--scrolbar);
+  border-radius: 1px;
+  box-shadow: 0px 0px 4px #1900ff;
+}
+
+@font-face {
+  font-family: Joyride;
+  src: url(../font/JoyrideSTD.otf);
+}
+
+
+
+.payment {
+  position: absolute;
+  width: 11.75rem;
+  height: 6.5625rem;
+  left: 102rem;
+  top: 42.8125rem;
+  .info {
+    position: absolute;
+    width: 11rem;
+    height: 3.625rem;
+    color: #B1FF33;
+    text-align: right;
+    text-shadow: 0px 0px 39px #B1FF33;
+    font-family: Inter-2;
+    // font-family: Joyride;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    top: -3.3rem;
+  }
+  > h1 {
+    position: absolute;
+    color: #FFF;
+    text-align: center;
+    font-family: Inter;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    left: 0.35rem;
+    top: 2.53rem;
+    width: 5rem;
+  }
+  > p {
+    position: absolute;
+    color: #FFF;
+    text-align: center;
+    font-family: Inter;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    left: 6.45rem;
+    top: 2.29rem;
+    width: 5rem;
+  }
+  .drive {
+      position: absolute;
+      color: #FFF;
+      text-align: center;
+      font-family: Inter;
+      font-size: 0.75rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      left: 3rem;
+      top: 5.25rem;
+      width: 6rem;
+      &:hover {
+        transform: scale(.95);
+      }
+  }
+  .buy {
+    position: absolute;
+    top: 7rem;
+    width: 6rem;
+    z-index: 1;
+    > h1 {
+      position: absolute;
+      left: 2.5rem;
+      top: -0.16rem;
+      width: 7rem;
+      color: #FFF;
+      text-align: center;
+      font-family: Inter;
+      font-size: 0.75rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+    &:hover {
+      transform: scale(.95);
+    }
+  }
+}
+
+.left {
+  position: absolute;
+  left: 108.5rem;
+  top: 5.5625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .color {
+    position: absolute;
+    width: 4.8125rem;
+    height: 1rem;
+    top: 4.5rem;
+    left: 0.6rem;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.8125rem;
+    line-height: 1rem;
+    text-align: right;
+    color: #FFFFFF;
+    > p {
+        position: absolute;
+        width: 14.25rem;
+        height: 2.625rem;
+        right: 0rem;
+        top: 0.3rem;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 0.75rem;
+        line-height: 1.3125rem;
+        text-align: right;
+        color: rgba(255, 255, 255, 0.55);
+    }
+    .function {
+      position: absolute;
+      right: 0;
+      top: 4.5rem;
+    }
+    .button {
+      z-index: 1;
+      > p {
+        position: absolute;
+        width: 4.875rem;
+        height: 0.9375rem;
+        top: 6.27rem;
+        left: 3.7rem;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 0.75rem;
+        line-height: 0.9375rem;
+        text-align: center;
+        color: #FFFFFF;
+      }
+    }
+  }
+}
+
+.car-io {
+  position: absolute;
+  left: 5.5rem;
+  top: 39.1875rem;
+  .label {
+    width: 11.9375rem;
+    height: 1.8125rem;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 1.8125rem;
+    color: #8bf5ba;
+    text-shadow: 0px 0px 39px #8bf5ba;
+    > p {
+        width: 17.375rem;
+        height: 6.1875rem;
+        left: 5.0625rem;
+        top: 41.1875rem;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 0.75rem;
+        line-height: 1.3125rem;
+        color: rgba(255, 255, 255, 0.55);
+        text-shadow: none;
+    }
+  }
+  .scategory {
+    position: absolute;
+    width: 4.5625rem;
+    height: 1.1875rem;
+    top: -1.4rem;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.1875rem;
+    color: #FFFFFF;
+  }
+
+}
+
+.header {
+  position: absolute;
+  width: 4.1875rem;
+  height: 4.1875rem;
+  left: 4.5rem;
+  top: 3rem;
+  background-image: url("../img/icon.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .label {
+    position: absolute;
+    width: 5.25rem;
+    height: 1.1875rem;
+    left: 4.7rem;
+    top: 0.5rem;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.1875rem;
+    color: #FFFFFF;
+  }
+  .name {
+    position: absolute;
+    width: 11.125rem;
+    height: 1.25rem;
+    left: 4.55rem;
+    top: 1.75rem;
+    font-family: 'Joyride';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.2654rem;
+    line-height: 1.25rem;
+    color: #8bf5ba;
+    text-shadow: 0rem 0rem 2.0563rem #8bf5ba;
+  }
+  .description {
+    position: absolute;
+    width: 11.125rem;
+    height: 1.875rem;
+    left: 4.6rem;
+    top: 3.2rem;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 0.9375rem;
+    color: rgba(255, 255, 255, 0.55);
+  }
+}
+
+#app {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  // background-image: url("../img/background.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.features {
+  position: absolute;
+  left: -5.9rem;
+  top: -2rem;
+  .speed {
+    position: absolute;
+    left: 5.125rem;
+    top: 9.625rem;
+    > h1 {
+        position: absolute;
+        left: 10.075rem;
+        top: 1.9rem;
+        width: 9.9375rem;
+        height: 0.9375rem;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 0.75rem;
+        line-height: 0.9375rem;
+        color: #FFFFFF;
+        text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.4);
+    }
+    > p {
+      position: absolute;
+      width: 3.5rem;
+      height: 0.9375rem;
+      left: 17.5rem;
+      top: 1.65rem;
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 0.75rem;
+      line-height: 0.9375rem;
+      text-align: right;
+      color: #FFFFFF;
+      text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.4);
+    }
+    .bar {
+      position: absolute;
+      top: 2.1rem;
+      left: 6rem;
+      .load {
+        position: absolute;
+        overflow: hidden;
+        left: 4.25rem;
+        top: 1.2rem;
+      }
+    }
+  }
+  .acceleration {
+    position: absolute;
+    left: 5.125rem;
+    top: 12.8rem;
+    > h1 {
+        position: absolute;
+        left: 10.075rem;
+        top: 1.9rem;
+        left: 10.25rem;
+        width: 9.9375rem;
+        height: 0.9375rem;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 0.75rem;
+        line-height: 0.9375rem;
+        color: #FFFFFF;
+        text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.4);
+    }
+    > p {
+      position: absolute;
+      width: 3.5rem;
+      height: 0.9375rem;
+      left: 17.5rem;
+      top: 1.65rem;
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 0.75rem;
+      line-height: 0.9375rem;
+      text-align: right;
+      color: #FFFFFF;
+      text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.4);
+    }
+    .bar {
+      position: absolute;
+      top: 2.1rem;
+      left: 6rem;
+      .load {
+        position: absolute;
+        overflow: hidden;
+        left: 4.25rem;
+        top: 1.15rem;
+      }
+    }
+  }
+  .steering {
+    position: absolute;
+    left: 5.125rem;
+    top: 16rem;
+    > h1 {
+        position: absolute;
+        left: 10.075rem;
+        top: 1.9rem;
+        left: 10.25rem;
+        width: 9.9375rem;
+        height: 0.9375rem;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 0.75rem;
+        line-height: 0.9375rem;
+        color: #FFFFFF;
+        text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.4);
+    }
+    > p {
+      position: absolute;
+      width: 3.5rem;
+      height: 0.9375rem;
+      left: 17.5rem;
+      top: 1.65rem;
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 0.75rem;
+      line-height: 0.9375rem;
+      text-align: right;
+      color: #FFFFFF;
+      text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.4);
+    }
+    .bar {
+      position: absolute;
+      top: 2.1rem;
+      left: 6rem;
+      .load {
+        position: absolute;
+        overflow: hidden;
+        left: 4.25rem;
+        top: 1.2rem;
+      }
+    }
+  }
+  .capacity {
+    position: absolute;
+    top: 3.2rem;
+    > h1 {
+        position: absolute;
+        left: 10.075rem;
+        top: 1.9rem;
+        left: 10.25rem;
+        width: 9.9375rem;
+        height: 0.9375rem;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 0.75rem;
+        line-height: 0.9375rem;
+        color: #FFFFFF;
+        text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.4);
+    }
+    > p {
+      position: absolute;
+      width: 3.5rem;
+      height: 0.9375rem;
+      left: 17.5rem;
+      top: 1.65rem;
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 0.75rem;
+      line-height: 0.9375rem;
+      text-align: right;
+      color: #FFFFFF;
+      text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.4);
+    }
+    .bar {
+      position: absolute;
+      top: 2.1rem;
+      left: 6rem;
+      .load {
+        position: absolute;
+        overflow: hidden;
+        left: 4.25rem;
+        top: 1.2rem;
+      }
+    }
+  }
+  .fuel {
+    position: absolute;
+    top: 6.6rem;
+    > h1 {
+        position: absolute;
+        left: 10.075rem;
+        top: 1.9rem;
+        left: 10.25rem;
+        width: 9.9375rem;
+        height: 0.9375rem;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 0.75rem;
+        line-height: 0.9375rem;
+        color: #FFFFFF;
+        text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.4);
+    }
+    > p {
+      position: absolute;
+      width: 3.5rem;
+      height: 0.9375rem;
+      left: 17.5rem;
+      top: 1.65rem;
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 0.75rem;
+      line-height: 0.9375rem;
+      text-align: right;
+      color: #FFFFFF;
+      text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.4);
+    }
+    .bar {
+      position: absolute;
+      top: 2.1rem;
+      left: 6rem;
+      .load {
+        position: absolute;
+        overflow: hidden;
+        left: 4.25rem;
+        top: 1.2rem;
+      }
+    }
+  }
+}
+
+#shadow {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(4, 5, 13, 0.16) 0%, rgba(4, 5, 13, 0.68) 100%);
+}
+
+.category-text{
+  position: absolute;
+  overflow: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  left: 7.9rem;
+  top: 50.85rem;
+  width: 40%;
+  height: 10.5rem;
+  z-index: 1;
+  transition: 0.47s all;
+  .text {
+    position: relative;
+    display: inline-block;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 0.9375rem;
+    color: rgba(255, 255, 255, 0.55);
+    margin-left: 1rem;
+    transition: all 1s cubic-bezier(.08,.6,0,1);
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 0.9375rem;
+    text-transform: uppercase;
+  }
+  .text.active {
+    color: #B1FF33; 
+  }
+  .border {
+    position: absolute;
+    bottom: -2px; 
+    left: 0;
+    width: 100%;
+    height: 0.125rem;
+    background: #B1FF33;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .text.active .border {
+    transform: scaleX(1);
+  }
+}
+
+.vehicles {
+  position: absolute;
+  overflow: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  left: 4.3rem;
+  top: 54rem;
+  width: 95%;
+  height: 10.5rem;
+  z-index: 99999999999999999999999;
+  .list {
+      position: relative;
+      display: inline-block;
+      margin-left: 0.5rem;
+      width: 17.25rem;
+      height: 10.5rem;
+      margin-left:1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url("../img/border.svg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      transition: 0.47s all;
+      z-index: 1;
+      &:hover {
+        transform: scale(.95);
+      }
+  }
+  .price {
+    position: absolute;
+    width: 3.375rem;
+    height: 0.9375rem;
+    top: 0.13rem;
+    left: 12.27rem;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 0.9375rem;
+    color: #FFFFFF;
+    text-align: center;
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.4);
+    text-transform: uppercase;
+  }
+  .image {
+    position: absolute;
+    width: 12rem;
+    height: 7.25rem;
+    left: 3rem;
+    top: 1.75rem;
+    // background-image: url("../car/car1.png");
+    z-index: -1;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+  .label {
+    position: absolute;
+    width: 7.6875rem;
+    height: 1.0625rem;
+    left: 0.8rem;
+    top: 8rem;
+    font-family: 'Inter-2';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.0625rem;
+    text-align: left;
+    color: #FFFFFF;
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.4);
+    text-transform: uppercase;
+  }
+  .category {
+    position: absolute;
+    display: block;
+    width: 3.5rem;
+    height: 0.9375rem;
+    top: 9.1rem;
+    left: 0.8rem;
+    font-family: 'Inter-2';
+    font-style: normal;
+    text-align: left !important;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 0.9375rem;
+    color: rgba(255, 255, 255, 0.55);
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.4);
+    text-transform: uppercase;
+  }
+}
+
+.category {
+  position: absolute;
+  width: 54.0625rem;
+  height: 2.75rem;
+  left: 5.35rem;
+  top: 50.1875rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .right {
+    position: absolute;
+    left: 0.7rem;
+    top: 0.44rem;
+    &:hover {
+      transition: 0.47s all;
+      transform: scale(.95);
+    }
+  }
+  .left {
+    position: absolute;
+    left: 51.45rem;
+    top: 0.44rem;
+    &:hover {
+      transition: 0.47s all;
+      transform: scale(.95);
+    }
+  }
+}
+
+
+.custom-input::placeholder { 
+  color: #0F274C;
+}
+
+
+.plate-description {
+  position: absolute;
+  width: 14.25rem;
+  height: 2.625rem;
+  left: 99.5rem;
+  top: 25.0625rem;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.3125rem;
+  text-align: right;
+  color: #FFFFFF8C;
+  z-index:1;
+  .plate {
+    position: absolute;
+    width: 13.625rem;
+    height: 5.875rem;
+    left: 1.8rem;
+    background-image: url("../img/plate.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    > input {
+      outline: none;
+      border: none;
+      background: none;
+      position: relative;
+      width: 10.5rem;
+      top: 2.1rem;
+      left:-1.5rem;
+      font-size: 1.5rem;
+      color: #0F274C; 
+      text-align: center;
+      text-shadow: 0px 0.9855830073356628px 4.927914619445801px #FFF;
+      font-family: Gilroy;
+      font-size: 2.15594rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      white-space: nowrap;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+    }
+    
+  }
+  .change {
+    position: absolute;
+    top: 10.3rem;
+    left: 2.8rem;
+    z-index: 1;
+    > p {
+      position: absolute;
+      color: #FFF;
+      text-align: center;
+      font-family: Inter;
+      font-size: 0.75rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      left: 3rem;
+      top: -0.3rem;
+      width: 6rem;
+    }
+  }
+}
+
+html {
+  font-size: 16.0px;
+}
+
+@media screen and (width: 3440px) and (height: 1440px) {
+  html {
+    font-size: 21.5px;
+  }
+}
+
+@media screen and (width: 4096px) and (height: 2160px) {
+  html {
+    font-size: 31px;
+  }
+}
+
+@media screen and (width: 2560px) and (height: 1440px) {
+  html {
+    font-size: 21.5px;
+  }
+}
+
+@media screen and (width: 1920px) and (height: 1200px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media screen and (width: 1920px) and (height: 1200px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media screen and (width: 1920px) and (height: 1440px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media screen and (width: 1600px) and (height: 1024px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media screen and (width: 1440px) and (height: 900px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media screen and (width: 1680px) and (height: 1050px) {
+  html {
+    font-size: 14.0px;
+  }
+}
+
+@media screen and (width: 1600px) and (height: 900px) {
+  html {
+    font-size: 13.3px;
+  }
+}
+
+@media screen and (width: 1600px) and (height: 1024px) {
+  html {
+    font-size: 13.3px;
+  }
+}
+
+@media screen and (width: 1768px) and (height: 992px) {
+  html {
+    font-size: 15px;
+  }
+}
+@media screen and (width: 1366px) and (height: 768px) {
+  html {
+    font-size: 11.3px;
+  }
+}
+@media screen and (width: 1400px) and (height: 1050px) {
+  html {
+    font-size: 11.7px;
+  }
+}
+@media screen and (width: 1280px) and (height: 1024px) {
+  html {
+    font-size: 11.7px;
+  }
+}
+@media screen and (width: 1280px) and (height: 720px) {
+  html {
+    font-size: 11px;
+  }
+}
+@media screen and (width: 1024px) and (height: 768px) {
+  html {
+    font-size: 10.05px;
+  }
+}
+@media screen and (width: 832px) and (height: 624px) {
+  html {
+    font-size: 8.05px;
+  }
+}
+
+@media screen and (width: 800px) and (height: 600px) {
+  html {
+    font-size: 8px;
+  }
+}

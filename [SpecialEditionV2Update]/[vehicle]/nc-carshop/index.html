@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>nc-carshop</title>
+    <link rel="stylesheet" href="../assets/css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/line-awesome/dist/line-awesome/css/line-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.min.js"></script>
+    <script src="https://unpkg.com/vue-color@2.8.0/dist/vue-color.min.js"></script>
+
+</head>
+
+<div id="app" v-if="ui">
+
+    <div class="move"></div>
+
+
+    <div ref="animatedDiv" class="plate-description">
+        <span style="color: white;">License plate</span><br>
+        Change the license plate number.
+        <div class="plate">
+            <input class="custom-input" type="text" placeholder="1234567" maxlength="8" v-model="platenum" @focus="onFocus" @blur="onBlur">
+        </div>
+
+        <div class="change">
+            <svg width="11.75rem" height="1.6875rem" viewBox="0 0 188 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="188" height="27" fill="url(#paint0_radial_215_2476)" fill-opacity="0.25"/>
+                <defs>
+                <radialGradient id="paint0_radial_215_2476" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(94 13.5) rotate(90) scale(25.0714 174.571)">
+                <stop stop-color="white"/>
+                <stop offset="1" stop-color="white" stop-opacity="0"/>
+                </radialGradient>
+                </defs>
+            </svg>
+            <p>
+                Confirm
+            </p>
+        </div>
+
+    </div>
+
+      
+    <div id="shadow"></div>
+
+    <div class="left">
+        <div class="color">
+            Color
+            <p>
+                Here you can change the car's color.
+            </p>
+            <div class="function">
+                <svg width="11.75rem" height="6.5rem" viewBox="0 0 188 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="11.75rem" height="6.5rem" fill="url(#paint0_radial_228_466)" fill-opacity="0.25"/>
+                    <path d="M6 6H182V98H6V6Z" fill="url(#paint1_radial_228_466)"/>
+                    <rect x="44" y="37" width="7" height="7" rx="3.5" fill="white"/>
+                    <defs>
+                    <radialGradient id="paint0_radial_228_466" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(94 52) rotate(90) scale(96.5714 174.571)">
+                    <stop stop-color="white"/>
+                    <stop offset="1" stop-color="white" stop-opacity="0"/>
+                    </radialGradient>
+                    <radialGradient id="paint1_radial_228_466" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-14.0702 52.3129) scale(211.251 597.713)">
+                    <stop stop-color="#D91911"/>
+                    <stop offset="0.125" stop-color="#D97111"/>
+                    <stop offset="0.25" stop-color="#D9D111"/>
+                    <stop offset="0.369792" stop-color="#99D911"/>
+                    <stop offset="0.484375" stop-color="#15D911"/>
+                    <stop offset="0.598958" stop-color="#11D9D9"/>
+                    <stop offset="0.713542" stop-color="#1185D9"/>
+                    <stop offset="0.817708" stop-color="#2D11D9"/>
+                    <stop offset="0.90625" stop-color="#A511D9"/>
+                    <stop offset="1" stop-color="#D91111"/>
+                    </radialGradient>
+                    </defs>
+                </svg>
+                <div class="button" @click="colorPicker()">
+                    <svg width="11.75rem" height="1.6875rem" viewBox="0 0 188 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="188" height="27" fill="url(#paint0_radial_228_465)" fill-opacity="0.25"/>
+                        <defs>
+                        <radialGradient id="paint0_radial_228_465" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(94 13.5) rotate(90) scale(25.0714 174.571)">
+                        <stop stop-color="white"/>
+                        <stop offset="1" stop-color="white" stop-opacity="0"/>
+                        </radialGradient>
+                        </defs>
+                    </svg>    
+                    <p>
+                        Change Color
+                    </p>                   
+                </div>
+                <div ref="animatedPicker" style="margin-top:1rem; margin-left:-2.5rem; position: absolute;"  v-show="showPicker" >
+                    <chrome-picker style="width:15rem; height:12rem;" v-model="colors.hex" @input="updateColor"></chrome-picker>
+               </div> 
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="payment" ref="animatedPayment">
+        <div class="info">
+            <span style="color:white; font-size:1rem; font-weight:300; font-family:Inter-2">Price</span><br>
+            $ {{formatPrice (selection.price)}}
+        </div>
+        <h1>
+            Cash
+        </h1>
+        <p>
+            Card
+        </p>
+        <div class="drive" @click="testDrive()">
+            Test Drive
+        </div>
+        <div class="buy" v-if="buymenu" @click="buyCar()">
+            <h1>Buy Car</h1>
+            <svg width="11.75rem" height="1.688rem" viewBox="0 0 188 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="188" height="27" fill="url(#paint0_radial_312_11)" fill-opacity="0.25"/>
+                <defs>
+                <radialGradient id="paint0_radial_312_11" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(94 13.5) rotate(90) scale(25.0714 174.571)">
+                <stop stop-color="white"/>
+                <stop offset="1" stop-color="white" stop-opacity="0"/>
+                </radialGradient>
+                </defs>
+            </svg>                
+        </div>
+        <svg width="11.75rem" height="6.5625rem" viewBox="0 0 188 105" fill="none" xmlns="http://www.w3.org/2000/svg"> <rect y="78" width="188" height="27" fill="url(#paint0_radial_228_335)" fill-opacity="0.25"/> <rect @click="setPayment('cash')" width="90" height="70" fill="url(#paint1_radial_228_335)" fill-opacity="0.25"/> <path @click="setPayment('cash')" fill-rule="evenodd" clip-rule="evenodd" d="M48.6179 13.0713C48.4708 13.111 48.2765 13.1814 48.1863 13.2277C48.0961 13.274 45.4285 14.823 42.2583 16.6698L36.4944 20.0278L35.2248 20.0613C33.887 20.0967 33.7381 20.1202 33.236 20.3746C32.9208 20.5344 32.4716 20.979 32.2922 21.3086C31.9858 21.8716 32.0001 21.4692 32.0001 29.5425C32.0001 36.1113 32.009 36.9625 32.0804 37.2401C32.2828 38.0262 32.9725 38.716 33.7594 38.9192C34.0394 38.9915 35.1336 38.9998 44.4006 38.9998C55.6707 38.9998 54.9774 39.0175 55.5766 38.7138C55.9078 38.546 56.3844 38.0646 56.5574 37.723C56.7742 37.295 56.8313 36.8917 56.8323 35.782C56.8333 34.6535 56.7999 34.5044 56.5131 34.3589C56.3717 34.2872 56.0361 34.2742 53.9131 34.2581C51.199 34.2374 51.0949 34.2267 50.2821 33.8828C49.1999 33.425 48.3701 32.6455 47.8698 31.6169C47.5001 30.8567 47.419 30.4796 47.4199 29.5265C47.4207 28.7914 47.4337 28.6711 47.5568 28.2674C48.0601 26.616 49.2539 25.4466 50.9184 24.9743C51.307 24.8641 51.4246 24.8583 53.8647 24.831C56.6976 24.7993 56.6081 24.8112 56.7613 24.4446C56.8484 24.236 56.8631 22.4601 56.7813 22.0286C56.6949 21.5725 56.4614 21.1445 56.1104 20.7984C55.7559 20.4489 55.4426 20.2734 54.9603 20.1545L54.6363 20.0745L52.9385 17.1074C52.0047 15.4755 51.1738 14.0494 51.092 13.9381C50.9154 13.698 50.5378 13.377 50.2725 13.2417C49.8001 13.0006 49.1349 12.9322 48.6179 13.0713ZM49.6981 14.308C49.8098 14.3597 49.9687 14.4739 50.0511 14.5616C50.181 14.6998 50.1911 14.7303 50.1272 14.7905C50.0868 14.8286 48.0443 16.0287 45.5885 17.4574L41.1234 20.055L39.999 20.0414L38.8747 20.0278L43.6679 17.234C46.3043 15.6975 48.5681 14.3891 48.6988 14.3266C48.9968 14.1841 49.4137 14.1763 49.6981 14.308ZM52.6184 18.9614L53.226 20.0278L51.9826 20.0413C51.2987 20.0488 50.1766 20.0488 49.4891 20.0413L48.239 20.0278L50.0858 18.95C51.1015 18.3572 51.9501 17.8773 51.9717 17.8836C51.9932 17.8899 52.2842 18.3749 52.6184 18.9614ZM51.5009 26.0311C51.2727 26.0689 50.7275 26.2544 50.4896 26.3751C48.504 27.3828 47.9261 30.014 49.3122 31.7361C49.6647 32.1741 50.0174 32.4594 50.5106 32.7051C51.2632 33.0801 51.1989 33.0728 53.8997 33.0944C55.9971 33.1112 56.3666 33.1028 56.6404 33.0327C57.2319 32.8811 57.6453 32.5196 57.8802 31.9483C57.9978 31.6623 57.9988 31.6423 58 29.5721C58.0008 28.2146 57.982 27.4241 57.9463 27.3118C57.7466 26.6826 57.3241 26.2569 56.7062 26.0618C56.5532 26.0136 55.9015 25.9993 54.0655 26.0039C52.7248 26.0073 51.5707 26.0195 51.5009 26.0311ZM52.6024 28.5073C52.9205 28.6555 53.147 28.9443 53.223 29.2987C53.4281 30.2553 52.43 31.0189 51.5597 30.5711C51.1622 30.3665 50.9415 29.9977 50.9434 29.5408C50.947 28.6718 51.8063 28.1366 52.6024 28.5073Z" fill="url(#paint1_radial_228_335)"/> <rect @click="setPayment('bank')" x="98" width="90" height="70" fill="url(#paint3_radial_228_336)" fill-opacity="0.25"/> <path @click="setPayment('bank')" fill-rule="evenodd" clip-rule="evenodd" d="M130.469 20.0829C129.304 20.3716 128.4 21.2123 128.095 22.2911C127.98 22.6986 127.964 24.5807 128.075 24.6829C128.178 24.7772 157.822 24.7772 157.925 24.6829C158.036 24.5807 158.02 22.6986 157.905 22.2911C157.596 21.2007 156.689 20.3643 155.506 20.0803C155.198 20.0064 153.777 19.9974 142.973 20.0005C132.485 20.0036 130.743 20.0151 130.469 20.0829ZM128.075 26.5399C128.022 26.5894 128.005 27.7634 128.005 31.4952C128.005 36.8814 127.991 36.6582 128.373 37.3782C128.628 37.8592 129.25 38.4283 129.777 38.6631C130.589 39.0245 129.611 38.9996 143 38.9996C156.415 38.9996 155.427 39.0249 156.236 38.6605C156.749 38.4291 157.376 37.8516 157.627 37.3782C158.009 36.6582 157.995 36.8814 157.995 31.4952C157.995 27.7634 157.978 26.5894 157.925 26.5399C157.822 26.4456 128.178 26.4456 128.075 26.5399ZM134.978 32.211C135.383 32.3997 135.502 32.6661 135.502 33.3852C135.502 34.4192 135.219 34.6808 134.097 34.6808C132.975 34.6808 132.691 34.4192 132.691 33.3852C132.691 32.3512 132.975 32.0896 134.097 32.0896C134.623 32.0896 134.756 32.1079 134.978 32.211Z" fill="white"/> <path v-if="payment=='bank' " @click="setPayment('bank')" fill-rule="evenodd" clip-rule="evenodd" d="M130.469 20.0829C129.304 20.3716 128.4 21.2123 128.095 22.2911C127.98 22.6986 127.964 24.5807 128.075 24.6829C128.178 24.7772 157.822 24.7772 157.925 24.6829C158.036 24.5807 158.02 22.6986 157.905 22.2911C157.596 21.2007 156.689 20.3643 155.506 20.0803C155.198 20.0064 153.777 19.9974 142.973 20.0005C132.485 20.0036 130.743 20.0151 130.469 20.0829ZM128.075 26.5399C128.022 26.5894 128.005 27.7634 128.005 31.4952C128.005 36.8814 127.991 36.6582 128.373 37.3782C128.628 37.8592 129.25 38.4283 129.777 38.6631C130.589 39.0245 129.611 38.9996 143 38.9996C156.415 38.9996 155.427 39.0249 156.236 38.6605C156.749 38.4291 157.376 37.8516 157.627 37.3782C158.009 36.6582 157.995 36.8814 157.995 31.4952C157.995 27.7634 157.978 26.5894 157.925 26.5399C157.822 26.4456 128.178 26.4456 128.075 26.5399ZM134.978 32.211C135.383 32.3997 135.502 32.6661 135.502 33.3852C135.502 34.4192 135.219 34.6808 134.097 34.6808C132.975 34.6808 132.691 34.4192 132.691 33.3852C132.691 32.3512 132.975 32.0896 134.097 32.0896C134.623 32.0896 134.756 32.1079 134.978 32.211Z" fill="#B1FF33"/> <defs> <radialGradient id="paint0_radial_228_335" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(94 91.5) rotate(90) scale(25.0714 174.571)"> <stop stop-color="white"/> <stop offset="1" stop-color="white" stop-opacity="0"/> </radialGradient> <radialGradient v-if="payment=='cash' " id="paint1_radial_228_335" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(45 35) rotate(90) scale(65 83.5714)"> <stop stop-color="#B1FF33"/> <stop offset="1" stop-color="#B1FF33" stop-opacity="0"/> </radialGradient> <radialGradient id="paint1_radial_228_335" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(45 35) rotate(90) scale(65 83.5714)"> <stop stop-color="white"/> <stop offset="1" stop-color="white" stop-opacity="0"/> </radialGradient> <radialGradient id="paint3_radial_228_335" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(143 35) rotate(90) scale(65 83.5714)"> <stop stop-color="white"/> <stop offset="1" stop-color="white" stop-opacity="0"/> </radialGradient> <radialGradient v-if="payment=='bank' " id="paint3_radial_228_336" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(143 35) rotate(90) scale(65 83.5714)"> <stop stop-color="#B1FF33"/> <stop offset="1" stop-color="#B1FF33" stop-opacity="0"/> </radialGradient> <radialGradient id="paint3_radial_228_336" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(143 35) rotate(90) scale(65 83.5714)"> <stop stop-color="white"/> <stop offset="1" stop-color="white" stop-opacity="0"/> </radialGradient> </defs> </svg>
+    </div>
+
+    <div class="header">
+        <div class="label">
+            NCHub
+        </div>
+
+        <div class="name">
+            SHOWROOM
+        </div>
+
+        <div class="description">
+            Special Edition #V2.0 Beta
+        </div>
+    </div>
+
+    <div class="car-io">
+        <div class="label">
+            {{ selection.label }}
+            <p>
+                {{ selection.description }}
+            </p>
+        </div>
+        <div class="scategory">
+            {{ selection.category }}
+        </div>
+    </div>
+    
+    <div class="features">
+        <div class="speed">
+            <h1>
+                Maximum Speed
+            </h1>
+            <p>
+                {{ features.speed.percentage }} KM/H
+            </p>
+            <div class="bar">
+                <div class="load" :style="{ width: calculateWidth(features.speed.percentage) }">
+                    <svg width="10.8125rem" height="0.5rem" viewBox="0 0 173 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="165" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="150" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="135" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="120" width="8" height="8" fill="#8bf5ba"/>
+                        <rect width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="105" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="90" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="15" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="75" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="30" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="45" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="60" width="8" height="8" fill="#8bf5ba"/>
+                    </svg>
+                </div>
+                <svg width="15.625rem" height="2.625rem" viewBox="0 0 250 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0L35 0L49 21L35 42H0V0Z" fill="white" fill-opacity="0.05"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M24.6393 14.0698C24.5512 14.1736 19.4721 25.2373 19.3547 25.5811C19.0678 26.4213 19.424 27.3342 20.197 27.7395C20.3929 27.8422 20.4543 27.853 20.8453 27.853C21.2661 27.853 21.2849 27.8489 21.5755 27.6958C21.905 27.522 22.134 27.2821 22.2968 26.9402C22.3654 26.7963 22.7904 24.9014 23.7387 20.5117C24.4783 17.0882 25.0834 14.2585 25.0834 14.2233C25.0834 14.0298 24.7662 13.9201 24.6393 14.0698ZM21.6301 15.6511C21.5993 15.7041 21.5109 18.0141 21.5368 18.0863C21.5567 18.1415 21.8316 18.2097 22.085 18.2222C22.1017 18.223 22.3697 17.671 22.6807 16.9954C23.0822 16.1231 23.232 15.759 23.1975 15.7389C23.0525 15.6544 21.6729 15.5771 21.6301 15.6511ZM20.0345 15.7453C18.6627 16.003 17.4725 16.5144 16.2807 17.3581C16.0154 17.5459 15.8997 17.6525 15.8997 17.7092C15.8997 17.7914 16.7325 19.1293 16.7992 19.1543C16.8191 19.1617 17.0513 19.0545 17.3152 18.9161C18.2938 18.403 19.5333 18.0778 20.5108 18.0778C20.6959 18.0778 20.7535 18.0626 20.773 18.0085C20.8119 17.9002 20.6738 15.781 20.6236 15.7165C20.5696 15.6471 20.5525 15.648 20.0345 15.7453ZM24.8722 17.774C24.7023 18.5715 24.5616 19.2393 24.5596 19.2578C24.5533 19.3142 25.1173 19.7146 25.1717 19.6923C25.2276 19.6694 26.6868 17.3111 26.7142 17.1992C26.7248 17.1562 26.6864 17.0955 26.6136 17.0402C26.4662 16.9283 25.4108 16.3811 25.2788 16.3482L25.1811 16.3238L24.8722 17.774ZM26.6502 18.9539C26.1522 19.5963 25.7351 20.1487 25.7233 20.1816C25.7103 20.2177 25.8157 20.3784 25.9894 20.5873C26.3679 21.0426 26.6032 21.3732 26.8494 21.7956C27.0909 22.21 27.4247 22.9522 27.5427 23.3374C27.5897 23.4904 27.6523 23.6371 27.6819 23.6633C27.724 23.7006 28.081 23.5635 29.3113 23.0375C30.1778 22.6671 30.9127 22.3374 30.9443 22.3048C30.9947 22.253 30.9786 22.1956 30.8133 21.8395C30.4471 21.0506 29.9402 20.2261 29.4012 19.5426C28.8627 18.8599 27.7745 17.786 27.6211 17.786C27.5829 17.786 27.1778 18.2734 26.6502 18.9539ZM14.7216 18.776C14.0625 19.5017 13.5658 20.239 13.1138 21.1625C12.8147 21.7736 12.4891 22.6267 12.5069 22.7528C12.5166 22.8224 12.6018 22.8753 12.908 23.0023C13.1219 23.0909 13.3329 23.1631 13.377 23.1629C13.4386 23.1625 13.5019 23.07 13.6505 22.7635C14.1678 21.6962 14.8948 20.748 15.8253 19.9269C15.9972 19.7751 16.1326 19.6266 16.1262 19.5968C16.1198 19.567 15.9387 19.3211 15.7238 19.0504C15.2713 18.4805 15.1738 18.3696 15.1257 18.3696C15.1065 18.3696 14.9246 18.5524 14.7216 18.776ZM29.5999 23.8547C28.6771 24.1384 27.9049 24.389 27.8838 24.4115C27.8588 24.4382 27.8622 24.5721 27.8937 24.7979C28.0167 25.6804 27.9891 26.7569 27.8209 27.6341L27.751 27.9989H29.852C31.7319 27.9989 31.9556 27.9919 31.9769 27.9329C32.0148 27.8275 32.004 26.7712 31.9597 26.2481C31.9004 25.5494 31.7819 24.8018 31.6323 24.1837C31.4797 23.5529 31.3994 23.3284 31.3284 23.3344C31.3005 23.3368 30.5226 23.5709 29.5999 23.8547ZM12.2356 23.7991C12.1826 23.8696 12.0817 24.5289 12.0268 25.1643C11.9737 25.7776 12.0023 26.8682 12.0878 27.4912C12.1203 27.7279 12.1569 27.9389 12.1693 27.9602C12.2045 28.021 12.6165 28.0087 12.619 27.9468C12.6201 27.9181 12.6193 27.6591 12.6171 27.3711C12.615 27.0832 12.6327 26.633 12.6565 26.3707C12.7072 25.8119 12.892 24.7904 13.0061 24.4387C13.094 24.1675 13.107 24.0159 13.0459 23.9757C13.0069 23.9499 12.3479 23.7485 12.2993 23.7475C12.2858 23.7472 12.2572 23.7705 12.2356 23.7991ZM21.2344 25.3671C21.8012 25.6417 21.8587 26.455 21.3381 26.8354C21.2244 26.9186 21.1525 26.9359 20.9214 26.9359C20.6805 26.9359 20.6193 26.9198 20.4754 26.8182C20.2499 26.659 20.1002 26.322 20.1349 26.0517C20.1785 25.7127 20.4209 25.3925 20.6894 25.3196C20.8543 25.2748 21.0855 25.2949 21.2344 25.3671Z" fill="white"/>
+                    <path d="M39.5 0L249.5 0V42H39.5L54 21L39.5 0Z" fill="white" fill-opacity="0.11"/>
+                    <rect x="66" y="23" width="12" height="12"  fill="white" fill-opacity="0.17"/>
+                    <rect x="81" y="23" width="12" height="12"  fill="white" fill-opacity="0.17"/>
+                    <rect x="96" y="23" width="12" height="12"  fill="white" fill-opacity="0.17"/>
+                    <rect x="111" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="126" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="141" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="156" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="171" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="186" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="201" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="216" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="231" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="acceleration">
+            <h1>
+                Acceleration
+            </h1>
+            <p>
+                {{features.acceleration.percentage}}%
+            </p>
+            <div class="bar">
+                <div class="load" :style="{ width: calculateWidth(features.acceleration.percentage) }">
+                    <svg width="10.8125rem" height="0.5rem" viewBox="0 0 173 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="165" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="150" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="135" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="120" width="8" height="8" fill="#8bf5ba"/>
+                        <rect width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="105" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="90" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="15" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="75" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="30" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="45" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="60" width="8" height="8" fill="#8bf5ba"/>
+                    </svg>
+                </div>
+                <svg width="15.625rem" height="2.625rem" viewBox="0 0 250 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0L35 0L49 21L35 42H0V0Z" fill="white" fill-opacity="0.05"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M22.0451 12.7933V14.5866L22.3143 14.6557C22.9383 14.8157 23.6922 15.1575 24.3104 15.5607C25.4154 16.2813 26.2589 17.2294 26.8541 18.4199C27.0447 18.801 27.3907 19.7452 27.3917 19.8869C27.3922 19.9479 27.503 19.952 29.1961 19.952H31L30.9757 19.7012C30.9001 18.9213 30.6998 18.005 30.4604 17.344C29.2285 13.943 26.1812 11.4932 22.6403 11.0571C22.3856 11.0257 22.1475 11 22.1112 11C22.0487 11 22.0451 11.0987 22.0451 12.7933ZM19.5386 13.3075C18.2879 13.4258 16.86 13.9334 15.7905 14.6398C15.2115 15.0223 14.9211 15.2607 14.413 15.7705C13.15 17.0379 12.3621 18.5995 12.0689 20.4163C11.977 20.9861 11.977 22.2608 12.0689 22.8307C12.3877 24.8063 13.277 26.4643 14.7431 27.8161C15.9566 28.935 17.4686 29.6578 19.1673 29.9311C19.7362 30.0226 20.9724 30.023 21.5623 29.932C23.3236 29.6601 24.8582 28.9061 26.1398 27.6828C27.2177 26.654 28.0777 25.1897 28.4541 23.7423C28.6532 22.9765 28.7715 21.866 28.7127 21.316L28.6861 21.0674L27.5861 21.0576L26.4861 21.0477L26.4205 20.6824C26.1534 19.1939 25.506 18.0142 24.4216 17.0402C23.5786 16.2831 22.6026 15.8159 21.3952 15.5913L20.9496 15.5085L20.9398 14.4107L20.93 13.3129L20.7583 13.2894C20.5359 13.2589 19.9623 13.2674 19.5386 13.3075ZM21.3387 16.7012C21.9626 16.8266 22.6349 17.1089 23.1962 17.4812C23.5544 17.7188 24.2775 18.4421 24.515 18.8005C24.8939 19.3722 25.1584 20.0095 25.3011 20.6949C25.3923 21.133 25.3923 22.114 25.3011 22.5521C25.0816 23.6061 24.6362 24.4319 23.8883 25.1712C23.1416 25.9094 22.3446 26.335 21.3024 26.5521C20.8644 26.6433 19.8837 26.6433 19.4458 26.5521C18.3938 26.3329 17.5718 25.889 16.8271 25.1378C16.0914 24.3957 15.6642 23.5954 15.4471 22.5521C15.3559 22.114 15.3559 21.133 15.4471 20.6949C15.6642 19.6516 16.0914 18.8513 16.8271 18.1091C17.6642 17.2647 18.6579 16.7797 19.8542 16.6316C20.1033 16.6008 21.063 16.6457 21.3387 16.7012ZM19.3059 17.8923C18.9327 18.0027 18.6031 18.1494 18.3103 18.3354C18.1894 18.4123 18.0829 18.482 18.0737 18.4904C18.0646 18.4988 18.2231 18.6724 18.426 18.8762L18.795 19.2467L18.3965 19.6453L17.9981 20.0439L17.6271 19.6742C17.2022 19.2507 17.2653 19.2459 16.9909 19.7232C16.8188 20.0226 16.6006 20.619 16.5632 20.8922L16.5393 21.0663H17.0642H17.5891V21.6235V22.1807H17.0642H16.5393L16.5632 22.3548C16.6006 22.628 16.8188 23.2244 16.9909 23.5237C17.2653 24.0011 17.2022 23.9962 17.6271 23.5727L17.9981 23.2031L18.3965 23.6017L18.795 24.0003L18.4255 24.3714C18.0021 24.7964 17.9973 24.7333 18.4744 25.0077C18.7737 25.1799 19.3699 25.3982 19.643 25.4356L19.8171 25.4595V24.9344V24.4094H20.3741H20.9311V24.9344V25.4595L21.1052 25.4356C21.3782 25.3982 21.9744 25.1799 22.2737 25.0077C22.7509 24.7333 22.7461 24.7964 22.3227 24.3714L21.9532 24.0003L22.3516 23.6017L22.7501 23.2031L23.1211 23.5727C23.546 23.9962 23.4828 24.0011 23.7572 23.5237C23.9293 23.2244 24.1476 22.628 24.185 22.3548L24.2089 22.1807H23.684H23.159V21.6235V21.0663H23.684H24.2089L24.185 20.8922C24.1476 20.619 23.9293 20.0226 23.7572 19.7232C23.4828 19.2459 23.546 19.2507 23.1211 19.6742L22.7501 20.0439L22.3516 19.6453L21.9532 19.2467L22.3227 18.8756C22.7461 18.4505 22.7509 18.5137 22.2737 18.2392C21.9744 18.0671 21.3782 17.8488 21.1052 17.8113L20.9311 17.7874V18.3125V18.8376H20.3741H19.8171V18.3176V17.7975L19.715 17.7995C19.6588 17.8006 19.4747 17.8423 19.3059 17.8923ZM20.7157 19.9941C21.0365 20.0628 21.3041 20.2104 21.5454 20.4518C22.5038 21.4105 21.9807 23.0345 20.6394 23.2646C20.1139 23.3548 19.5988 23.1862 19.2038 22.7947C18.5423 22.1392 18.5421 21.104 19.2033 20.4517C19.6226 20.0381 20.1607 19.8752 20.7157 19.9941ZM20.1053 21.1429C19.9485 21.2257 19.8171 21.4448 19.8171 21.6235C19.8171 21.8981 20.0982 22.1807 20.3713 22.1807C20.6565 22.1807 20.9311 21.9074 20.9311 21.6235C20.9311 21.4392 20.7997 21.2252 20.635 21.1411C20.452 21.0477 20.2844 21.0483 20.1053 21.1429Z" fill="white"/>
+                    <path d="M39.5 0L249.5 0V42H39.5L54 21L39.5 0Z" fill="white" fill-opacity="0.11"/>
+                    <rect x="66" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="81" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="96" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="111" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="126" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="141" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="156" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="171" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="186" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="201" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="216" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="231" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="steering">
+            <h1>
+                Grip
+            </h1>
+            <p>
+                {{features.road.percentage}}%
+            </p>
+            <div class="bar">
+                <div class="load" :style="{ width: calculateWidth(features.road.percentage) }">
+                    <svg width="10.8125rem" height="0.5rem" viewBox="0 0 173 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="165" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="150" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="135" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="120" width="8" height="8" fill="#8bf5ba"/>
+                        <rect width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="105" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="90" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="15" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="75" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="30" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="45" width="8" height="8" fill="#8bf5ba"/>
+                        <rect x="60" width="8" height="8" fill="#8bf5ba"/>
+                    </svg>
+                </div>
+                <svg width="15.625rem" height="2.625rem" viewBox="0 0 250 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0L35 0L49 21L35 42H0V0Z" fill="white" fill-opacity="0.05"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M20.7116 11.0121C20.2511 11.0602 19.599 11.1744 19.1496 11.2857C15.9354 12.082 13.2826 14.6399 12.3646 17.8281C12.0774 18.8255 11.9983 19.4112 12 20.5267C12.0017 21.5851 12.0704 22.1076 12.3343 23.0668C13.207 26.2394 15.762 28.7935 18.9357 29.6658C19.8866 29.9272 20.4171 29.997 21.4768 29.9999C22.5051 30.0027 22.935 29.9526 23.8532 29.723C26.4922 29.0628 28.7893 27.2081 30.0321 24.7339C30.4113 23.979 30.7687 22.8344 30.9211 21.8866C31.0257 21.2364 31.0264 19.8211 30.9224 19.1455C30.2758 14.9429 27.0733 11.7352 22.8797 11.0895C22.4687 11.0263 21.0587 10.9759 20.7116 11.0121ZM22.7892 13.8319C24.375 14.1459 25.7903 14.997 26.7798 16.2316C27.2634 16.835 27.8173 17.8452 27.9406 18.3487L27.9692 18.4656H26.8608H25.7525L25.4357 18.0474C25.0617 17.5537 24.9285 17.4339 24.559 17.2582L24.2827 17.1269H21.4981H18.7135L18.4372 17.2582C18.0677 17.4339 17.9345 17.5537 17.5605 18.0474L17.2437 18.4656H16.1353H15.0269L15.0557 18.3487C15.0715 18.2844 15.1616 18.0502 15.2559 17.8281C16.2144 15.5711 18.2839 14.0471 20.8179 13.7323C21.1966 13.6853 22.3405 13.7431 22.7892 13.8319ZM21.9852 19.2106C22.9992 19.4746 23.656 20.4464 23.5092 21.4651C23.3795 22.3649 22.6751 23.0665 21.7707 23.1968C20.3721 23.3982 19.1669 22.0633 19.5209 20.7049C19.807 19.6067 20.9184 18.9328 21.9852 19.2106ZM21.1792 19.8624C20.788 19.9651 20.4445 20.2467 20.265 20.6117C20.1214 20.9034 20.1177 21.4516 20.2574 21.7392C20.4032 22.0395 20.576 22.2202 20.8678 22.3775C21.1143 22.5103 21.1669 22.5224 21.4981 22.5215C21.8052 22.5207 21.892 22.5036 22.0766 22.4078C22.3969 22.2414 22.5303 22.1126 22.6912 21.8144C22.8231 21.5698 22.8357 21.5153 22.8357 21.1854C22.8357 20.8552 22.8232 20.801 22.6906 20.5554C22.4518 20.1125 22.0823 19.8746 21.5879 19.8454C21.4333 19.8363 21.2494 19.8439 21.1792 19.8624ZM15.7376 21.9778C16.6805 22.1642 17.5716 22.6499 18.2922 23.3702C19.198 24.2757 19.7058 25.4014 19.7849 26.6793C19.8062 27.0246 19.8005 27.0916 19.7509 27.0757C19.7181 27.0652 19.5574 27.014 19.3937 26.962C18.0694 26.5408 16.8166 25.6297 16.0031 24.496C15.5005 23.7955 14.9809 22.6562 14.8829 22.0397L14.8533 21.8529L15.1254 21.8817C15.275 21.8976 15.5506 21.9408 15.7376 21.9778ZM28.1122 22.0459C28.0222 22.6125 27.5527 23.6787 27.1048 24.3334C26.2664 25.559 25.0061 26.515 23.6662 26.9416C23.4675 27.0049 23.278 27.0652 23.2452 27.0757C23.1957 27.0916 23.19 27.0246 23.2113 26.6793C23.3389 24.6166 24.6674 22.8524 26.6209 22.1518C27.0017 22.0152 27.6259 21.8881 27.9973 21.8717L28.1409 21.8653L28.1122 22.0459Z" fill="white"/>
+                    <path d="M39.5 0L249.5 0V42H39.5L54 21L39.5 0Z" fill="white" fill-opacity="0.11"/>
+                    <rect x="66" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="81" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="96" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="111" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="126" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="141" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="156" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="171" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="186" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="201" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="216" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                    <rect x="231" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                </svg>                    
+            </div>
+
+            <div class="capacity">
+                <h1>
+                    Capacity
+                </h1>
+                <p>
+                    {{features.capacity.percentage}}%
+                </p>
+                <div class="bar">
+                    <div class="load" :style="{ width: calculateWidth(features.capacity.percentage) }">
+                        <svg width="10.8125rem" height="0.5rem" viewBox="0 0 173 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="165" width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="150" width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="135" width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="120" width="8" height="8" fill="#8bf5ba"/>
+                            <rect width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="105" width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="90" width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="15" width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="75" width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="30" width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="45" width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="60" width="8" height="8" fill="#8bf5ba"/>
+                        </svg>
+                    </div>
+                    <svg width="15.625rem" height="2.625rem" viewBox="0 0 250 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 0L35 0L49 21L35 42H0V0Z" fill="white" fill-opacity="0.05"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M30.5724 16.1184C30.4934 16.1841 29.9833 16.8982 29.4388 17.7054C28.6 18.9487 28.4413 19.161 28.3997 19.0952C27.6004 17.8309 26.7037 16.4952 26.6066 16.4245C26.4806 16.3327 26.452 16.332 22.3804 16.3204L18.2809 16.3085L18.1273 16.4103C18.0428 16.4663 17.3199 17.3012 16.5209 18.2657C15.7219 19.2301 15.0346 20.0267 14.9936 20.0359C14.9525 20.045 13.9063 20.1964 12.6687 20.3722C10.2095 20.7214 10.2257 20.7173 10.0729 21.0356C10.009 21.1688 10 21.4341 10 23.1844V25.1813L10.1011 25.3281C10.2943 25.6089 10.4094 25.6592 10.8959 25.6759L11.3363 25.6911L11.369 25.3872C11.4442 24.6877 11.753 24.0446 12.2492 23.5539C12.6015 23.2055 12.9931 22.9688 13.4814 22.809C13.9851 22.6442 14.758 22.6351 15.2559 22.7881C15.7702 22.9462 16.1337 23.1673 16.5403 23.5691C17.0791 24.1017 17.3293 24.6333 17.4357 25.472L17.4626 25.6831H21.1626H24.8627L24.8925 25.4276C24.9841 24.645 25.2321 24.1237 25.7664 23.5907C26.1931 23.1651 26.5413 22.9507 27.0703 22.7881C27.5682 22.6351 28.3411 22.6442 28.8447 22.809C29.3265 22.9666 29.716 23.2026 30.0665 23.549C30.5645 24.0412 30.8366 24.5894 30.9425 25.3138L30.9973 25.6886L31.7709 25.6747C32.6282 25.6593 32.6824 25.6427 32.8989 25.3281L33 25.1813V22.8513C33 20.2764 33.0049 20.3237 32.7137 20.1183C32.5767 20.0217 32.5355 20.0187 31.0571 19.997L29.5411 19.9748L30.3944 18.7088C30.8638 18.0124 31.2658 17.4368 31.2878 17.4296C31.3098 17.4223 31.5372 17.4691 31.7933 17.5335C32.3082 17.663 32.5183 17.6588 32.7228 17.5147C32.8763 17.4067 33.0004 17.1716 32.999 16.9918C32.9973 16.7792 32.842 16.501 32.6779 16.4165C32.4507 16.2996 31.2117 16.0012 30.9483 16C30.7606 15.9992 30.6882 16.022 30.5724 16.1184ZM26.605 18.7976C27.0076 19.4206 27.3376 19.9454 27.3384 19.9637C27.3392 19.982 24.9831 19.997 22.1027 19.997C19.211 19.997 16.8723 19.9799 16.8805 19.9589C16.8888 19.9379 17.3197 19.4081 17.8382 18.7814L18.781 17.6421L22.327 17.6534L25.8731 17.6648L26.605 18.7976ZM13.8817 23.3946C12.9432 23.5965 12.1982 24.4047 12.055 25.3762C11.8885 26.5059 12.6506 27.6257 13.7959 27.934C14.1051 28.0172 14.7288 28.012 15.0312 27.9235C15.8381 27.6876 16.4378 27.0898 16.6718 26.288C16.7781 25.9239 16.7695 25.3413 16.6523 24.9723C16.4633 24.3768 15.9961 23.8479 15.4179 23.575C14.9073 23.3339 14.4262 23.2774 13.8817 23.3946ZM27.4521 23.3806C26.9081 23.4825 26.2529 23.9238 25.9478 24.394C24.9365 25.9524 26.0529 28.0002 27.9138 28C28.5854 28 29.1222 27.7837 29.5853 27.3267C31.236 25.6977 29.7508 22.9503 27.4521 23.3806ZM14.6982 24.7266C15.1053 24.8462 15.3913 25.2363 15.3896 25.6697C15.3874 26.2575 14.98 26.6618 14.3925 26.6594C14.0845 26.6581 13.8312 26.5413 13.6285 26.3071C13.0808 25.6744 13.5252 24.7078 14.3829 24.6659C14.4341 24.6634 14.5759 24.6907 14.6982 24.7266ZM28.2326 24.7304C28.8267 24.9049 29.1062 25.5692 28.8203 26.1273C28.4505 26.8491 27.3973 26.8409 27.0189 26.1134C26.905 25.8945 26.8993 25.4833 27.0069 25.259C27.1206 25.022 27.3697 24.8022 27.606 24.7302C27.8756 24.648 27.9521 24.6481 28.2326 24.7304Z" fill="white"/>
+                        <path d="M39.5 0L249.5 0V42H39.5L54 21L39.5 0Z" fill="white" fill-opacity="0.11"/>
+                        <rect x="66" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="81" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="96" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="111" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="126" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="141" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="156" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="171" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="186" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="201" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="216" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="231" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        </svg>                                     
+                </div>
+            </div>
+
+            <div class="fuel">
+                <h1>
+                    Gas Tank
+                </h1>
+                <p>
+                    {{features.fuel.percentage}}%
+                </p>
+                <div class="bar">
+                    <div class="load" :style="{ width: calculateWidth(features.fuel.percentage) }">
+                        <svg width="10.8125rem" height="0.5rem" viewBox="0 0 173 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="165" width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="150" width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="135" width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="120" width="8" height="8" fill="#8bf5ba"/>
+                            <rect width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="105" width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="90" width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="15" width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="75" width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="30" width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="45" width="8" height="8" fill="#8bf5ba"/>
+                            <rect x="60" width="8" height="8" fill="#8bf5ba"/>
+                        </svg>
+                    </div>
+                    <svg width="15.625rem" height="2.625rem" viewBox="0 0 250 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 0L35 0L49 21L35 42H0V0Z" fill="white" fill-opacity="0.05"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M25.4808 12.0319C24.6787 12.125 23.8768 12.403 23.1736 12.8317C22.7749 13.0748 22.4321 13.3717 21.6869 14.1195L20.9561 14.8528L21.8196 15.7163C22.2945 16.1911 22.6983 16.5797 22.7169 16.5797C22.7355 16.5797 23.0571 16.2722 23.4316 15.8963C24.1731 15.1522 24.3719 14.9907 24.7961 14.788C25.2824 14.5557 25.5047 14.5136 26.3389 14.4962C27.1813 14.4787 27.2644 14.4556 27.3857 14.2052C27.4467 14.0793 27.4522 14.0001 27.4522 13.2421C27.4522 12.4841 27.4467 12.405 27.3857 12.2791C27.3433 12.1916 27.2724 12.1155 27.1901 12.0693C27.0682 12.0009 27.0228 11.997 26.3843 12.0011C26.0121 12.0036 25.6055 12.0174 25.4808 12.0319ZM19.3938 15.1567C19.3572 15.1766 19.1252 15.3928 18.8782 15.6373L18.429 16.0818L18.1139 15.7638C17.9405 15.5889 17.7583 15.4245 17.709 15.3984C17.5937 15.3375 17.372 15.3375 17.2571 15.3986C17.1458 15.4576 14.9794 17.6297 14.925 17.7367C14.9033 17.7794 14.8855 17.8816 14.8855 17.9637C14.8855 18.0921 14.9251 18.1787 15.1687 18.5834L15.452 19.0538L14.0285 20.4818C13.2456 21.2672 12.5886 21.9424 12.5684 21.9823C12.5221 22.0738 12.5212 22.2598 12.5665 22.3788C12.5856 22.4291 12.7449 22.6163 12.9204 22.7949L13.2396 23.1195L12.8607 23.514C12.4696 23.9212 12.3177 24.1368 12.1775 24.4839C12.0119 24.8936 12 25.0548 12 26.8955C12 28.5424 12.0024 28.6089 12.0669 28.7352C12.1421 28.8825 12.3336 29 12.4985 29C12.6633 29 12.8548 28.8825 12.93 28.7352C12.9945 28.6089 12.9969 28.5423 12.9969 26.9161C12.9969 25.0534 13.0025 24.9928 13.2037 24.6596C13.261 24.5647 13.4544 24.3412 13.6334 24.1629L13.9589 23.8388L14.6825 24.5551C15.4252 25.2902 15.6812 25.493 16.0707 25.6544C16.4056 25.7931 16.6082 25.8287 17.051 25.8262C17.4287 25.8241 17.4949 25.8142 17.7803 25.7167C17.9529 25.6578 18.1847 25.5559 18.2954 25.4902C18.5869 25.3173 22.8537 21.063 22.8989 20.9002C22.9237 20.8106 22.879 20.4795 22.6819 19.2949C22.5453 18.4742 22.4172 17.7703 22.3973 17.7308C22.3453 17.6281 19.9435 15.2233 19.8357 15.1661C19.7304 15.1102 19.4887 15.105 19.3938 15.1567ZM26.9497 17.0779C26.6853 17.2175 25.6922 18.9241 25.452 19.6516C25.3458 19.9733 25.3462 20.424 25.4531 20.7372C25.6382 21.2798 26.0507 21.6948 26.6074 21.8984C26.8896 22.0016 27.483 22.0016 27.7652 21.8984C28.3219 21.6948 28.7344 21.2798 28.9195 20.7372C29.0265 20.4237 29.0268 19.9732 28.9205 19.6516C28.7586 19.1623 28.3287 18.3496 27.8086 17.5495C27.6012 17.2305 27.5153 17.1269 27.4159 17.0763C27.257 16.9953 27.1051 16.9958 26.9497 17.0779ZM19.1864 22.1792C19.5746 22.373 19.899 22.538 19.9073 22.5458C19.9157 22.5536 19.4746 23.0078 18.9271 23.5552C18.0956 24.3865 17.8961 24.5689 17.7156 24.6628C17.3575 24.849 17.0295 24.8912 16.6675 24.7976C16.3462 24.7145 16.1869 24.6186 15.888 24.3287L15.6055 24.0548L16.5193 23.1396L17.4332 22.2244L17.4498 22.6376C17.4638 22.987 17.477 23.065 17.5349 23.1425C17.7118 23.3789 17.9391 23.4399 18.1784 23.3149C18.4225 23.1875 18.4467 23.1066 18.4467 22.4168C18.4467 22.0923 18.4543 21.8268 18.4636 21.8268C18.4729 21.8268 18.7982 21.9853 19.1864 22.1792Z" fill="white"/>
+                        <path d="M39.5 0L249.5 0V42H39.5L54 21L39.5 0Z" fill="white" fill-opacity="0.11"/>
+                        <rect x="66" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="81" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="96" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="111" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="126" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="141" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="156" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="171" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="186" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="201" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="216" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        <rect x="231" y="23" width="12" height="12" fill="white" fill-opacity="0.17"/>
+                        </svg>
+                                                           
+                </div>
+            </div>
+
+        </div>
+
+        
+
+    </div>
+
+    <div class="vehicles">
+        <div class="list" v-if="CCategory == eyes.category" :style="[BBackground === eyes.model ? {'background-image': `url(./assets/img/select.svg)`} : {'background-image': `url(./assets/img/border.svg)`}]" @click="Cars('selection', eyes)" v-for="eyes in vehicles">
+            <div class="price">${{ formatPrice(eyes.price) }}</div>
+            <div class="image" :style="{ 'background-image': `url(./assets/car/${eyes.model}.png)` }"></div>
+            <div class="label">{{ eyes.label }}</div>
+            <div class="category">{{ eyes.category }}</div>
+        </div>
+    </div>
+
+    <div class="category-text" ref="scrollContainer">
+        <div class="text" @click="Category(eyes)" v-for="eyes in category" :key="eyes.label" :ref="eyes.label">
+          {{ eyes.label }}
+          <div class="border" style="top:1.2rem;" v-show="CCategory === eyes.label" ref="border"></div>
+        </div>
+      </div>
+      
+
+    <div class="category">
+        <svg width="54.0625rem" height="2.75rem" viewBox="0 0 865 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="865" height="44" fill="url(#paint0_radial_210_415)" fill-opacity="0.15"/>
+            <rect x="0.5" y="0.5" width="864" height="43" stroke="url(#paint1_radial_210_415)" stroke-opacity="0.25"/>
+            <defs>
+            <radialGradient id="paint0_radial_210_415" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(432.5 22) rotate(90) scale(40.8571 803.214)">
+            <stop stop-color="white"/>
+            <stop offset="1" stop-color="white" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="paint1_radial_210_415" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(432.5 22) rotate(3.88001) scale(433.494 105.159)">
+            <stop stop-color="white"/>
+            <stop offset="1" stop-color="white" stop-opacity="0"/>
+            </radialGradient>
+            </defs>
+        </svg>       
+        <div class="right" @click="SetLeftRight('right')">
+            <svg width="1.875rem" height="1.875rem" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="30" height="30" fill="url(#paint0_radial_215_2458)"/>
+                <path d="M17 11L13 15L17 19" stroke="black" stroke-opacity="0.65"/>
+                <defs>
+                <radialGradient id="paint0_radial_215_2458" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(15 15) rotate(90) scale(27)">
+                <stop stop-color="white"/>
+                <stop offset="1" stop-color="white" stop-opacity="0"/>
+                </radialGradient>
+                </defs>
+            </svg>
+        </div>
+        <div class="left" @click="SetLeftRight('left')">
+            <svg width="1.875rem" height="1.875rem" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="30" height="30" transform="matrix(-1 0 0 1 30 0)" fill="url(#paint0_radial_215_2461)"/>
+                <path d="M13 11L17 15L13 19" stroke="black" stroke-opacity="0.65"/>
+                <defs>
+                <radialGradient id="paint0_radial_215_2461" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(15 15) rotate(90) scale(27)">
+                <stop stop-color="white"/>
+                <stop offset="1" stop-color="white" stop-opacity="0"/>
+                </radialGradient>
+                </defs>
+            </svg>                
+        </div>
+    </div>
+
+
+    
+</div>
+
+<script src="./assets/data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="./vue.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</body>
+
+</html>
